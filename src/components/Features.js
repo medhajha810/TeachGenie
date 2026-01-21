@@ -101,7 +101,7 @@ export default function Features() {
       <div className="container">
         <div className="section-header">
           <h2>
-            Why Choose <LayoutTextFlip words={["TeachGenie.ai?", "Instant Speed?", "AI Power?", "Precision?"]} />
+            Why Choose <LayoutTextFlip words={["TeachGenie.ai?", "Instant Speed?", "AI Power?", "Precision?", "Gamification?"]} />
           </h2>
           <p>Everything you need to create exceptional lectures powered by AI</p>
         </div>

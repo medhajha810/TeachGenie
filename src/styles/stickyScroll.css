@@ -1,25 +1,29 @@
 /* Sticky Scroll Styles */
-.sticky-scroll-container {
+/* Sticky Scroll Styles */
+.sticky-scroll-wrapper {
     height: 38rem;
-    /* Increased height */
+    position: relative;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    background: linear-gradient(135deg, rgba(254, 249, 195, 0.4) 0%, rgba(253, 186, 116, 0.2) 50%, rgba(244, 114, 182, 0.1) 100%);
+    border: 1px solid rgba(251, 146, 60, 0.3);
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    /* Ensure rounded corners clip content */
+}
+
+.sticky-scroll-container {
+    height: 100%;
     overflow-y: auto;
     display: flex;
     justify-content: center;
-    position: relative;
     column-gap: 3rem;
     padding: 3rem;
-    border-radius: 1rem;
-    box-shadow: var(--shadow);
+
     /* Hide scrollbar */
     scrollbar-width: none;
     -ms-overflow-style: none;
-
-    /* Sunset / Aurora Gradient Background */
-    background: linear-gradient(135deg, rgba(254, 249, 195, 0.4) 0%, rgba(253, 186, 116, 0.2) 50%, rgba(244, 114, 182, 0.1) 100%);
-    border: 1px solid rgba(251, 146, 60, 0.3);
-
-    width: 100%;
-    margin: 0 auto;
 }
 
 .sticky-scroll-container::-webkit-scrollbar {
@@ -29,14 +33,17 @@
 /* Side Slider Progress Bar */
 .sticky-scroll-progress-bar {
     position: absolute;
-    right: 1.5rem;
-    top: 3rem;
-    bottom: 3rem;
-    width: 6px;
+    right: 1rem;
+    top: 2rem;
+    bottom: 2rem;
+    width: 8px;
+    /* Thicker */
     background: rgba(0, 0, 0, 0.1);
+    /* Visible track */
     border-radius: 99px;
     overflow: hidden;
-    z-index: 10;
+    z-index: 20;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .sticky-scroll-progress-fill {

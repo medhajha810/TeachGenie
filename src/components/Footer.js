@@ -14,12 +14,12 @@ const Footer = () => {
           <h2 className="footer-logo-text">TeachGenie</h2>
         </div>
 
-        {/* Navigation Links */}
         <nav className="footer-nav">
           <a href="#features">FEATURES</a>
           <a href="#packages">PRICING</a>
           <a href="#how-it-works">HOW IT WORKS</a>
           <Link to="/generator">GENERATOR</Link>
+          <Link to="/team">TEAM</Link>
           <Link to="/learn-more">ABOUT</Link>
           <Link to="/login">LOGIN</Link>
         </nav>
@@ -33,12 +33,16 @@ const Footer = () => {
         <div className="footer-credits">
           <span className="credit-item">
             <span className="credit-label">Developer:</span>
-            <span className="credit-name">Lovi Raj Gupta</span>
+            <span className="credit-name">
+              <a href = "https://www.linkedin.com/in/loviraj">Lovi Raj Gupta</a>
+            </span>
           </span>
           <span className="divider">•</span>
           <span className="credit-item">
             <span className="credit-label">Contributors:</span>
-            <span className="credit-name">Medha Jha & Golu Kumar</span>
+            <span className="credit-name">
+              <a href = "https://www.linkedin.com/in/medha-jha08">Medha Jha</a> & <a href = "https://www.linkedin.com/in/golukumar15">Golu Kumar</a>
+            </span>
           </span>
           <span className="divider">•</span>
           <span className="credit-item">

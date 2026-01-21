@@ -38,33 +38,7 @@ export const StickyScroll = ({
     ];
 
     return (
-        <motion.div
-            className="sticky-scroll-container"
-            ref={ref}
-        >
-            <div className="sticky-scroll-content-wrapper">
-                <div className="sticky-scroll-text-col">
-                    {content.map((item, index) => (
-                        <div key={item.title + index} className="sticky-scroll-item">
-                            <motion.h2
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: activeCard === index ? 1 : 0.3 }}
-                                className="sticky-scroll-title"
-                            >
-                                {item.title}
-                            </motion.h2>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: activeCard === index ? 1 : 0.3 }}
-                                className="sticky-scroll-description"
-                            >
-                                {item.description}
-                            </motion.div>
-                        </div>
-                    ))}
-                    <div style={{ height: "10rem" }} />
-                </div>
-            </div>
+        <div className="sticky-scroll-wrapper">
             <div className="sticky-scroll-progress-bar">
                 <motion.div
                     className="sticky-scroll-progress-fill"
@@ -72,15 +46,43 @@ export const StickyScroll = ({
                 />
             </div>
             <motion.div
-                animate={{
-                    background: linearGradients[activeCard % linearGradients.length],
-                }}
-                className={`sticky-scroll-card ${contentClassName}`}
+                className="sticky-scroll-container"
+                ref={ref}
             >
-                <div className="sticky-scroll-card-content">
-                    {content[activeCard].content ?? null}
+                <div className="sticky-scroll-content-wrapper">
+                    <div className="sticky-scroll-text-col">
+                        {content.map((item, index) => (
+                            <div key={item.title + index} className="sticky-scroll-item">
+                                <motion.h2
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: activeCard === index ? 1 : 0.3 }}
+                                    className="sticky-scroll-title"
+                                >
+                                    {item.title}
+                                </motion.h2>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: activeCard === index ? 1 : 0.3 }}
+                                    className="sticky-scroll-description"
+                                >
+                                    {item.description}
+                                </motion.div>
+                            </div>
+                        ))}
+                        <div style={{ height: "10rem" }} />
+                    </div>
                 </div>
+                <motion.div
+                    animate={{
+                        background: linearGradients[activeCard % linearGradients.length],
+                    }}
+                    className={`sticky-scroll-card ${contentClassName}`}
+                >
+                    <div className="sticky-scroll-card-content">
+                        {content[activeCard].content ?? null}
+                    </div>
+                </motion.div>
             </motion.div>
-        </motion.div>
+        </div>
     );
 };

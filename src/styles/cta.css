@@ -146,15 +146,17 @@
   box-shadow: 0 15px 40px rgba(255, 140, 0, 0.4);
 }
 
-.cta-btn-secondary {
-  background: transparent;
-  border: 2px solid #0d246e;
-  color: #0d246e;
+.cta-btn.btn-secondary {
+  background: white;
+  border: 2px solid #1e3a8a;
+  color: #1e3a8a;
 }
 
-.cta-btn-secondary:hover {
-  background: rgba(13, 36, 110, 0.1);
-  border-color: #1e40af;
+.cta-btn.btn-secondary:hover {
+  background: #1e3a8a;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(30, 58, 138, 0.3);
 }
 
 .cta-footer {
@@ -170,6 +172,7 @@
     opacity: 0;
     transform: translateY(50px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -177,9 +180,12 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.1;
   }
+
   50% {
     opacity: 0.2;
   }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import Team from './pages/Team';
 import GeneratorPage from './pages/GeneratorPage';
 import LearnMore from './pages/LearnMore';
 import Login from './pages/Login';
@@ -25,6 +26,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/team" element={<Team />} />
             <Route path="/generator" element={<GeneratorPage />} />
             <Route path="/learn-more" element={<LearnMore />} />
             <Route path="/login" element={<Login />} />

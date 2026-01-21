@@ -4,24 +4,27 @@ import { Sparkles, Zap, Download, CheckCircle, AlertCircle, TrendingUp, LayoutDa
 import GenieLoader from './GenieLoader';
 import '../styles/generator.css';
 import '../styles/dashboard.css';
+import '../styles/dashboard-compact-stats.css';
+import '../styles/gamified-quiz-option.css';
+import '../styles/form-checkbox.css';
 
 const Generator = ({ backButton }) => {
   const navigate = useNavigate();
-  
+
   // Dashboard State
   const [activeSection, setActiveSection] = useState('generator');
-  
+
   // Form Inputs
   const [topic, setTopic] = useState('');
   const [level, setLevel] = useState('undergraduate');
   const [duration, setDuration] = useState('30');
   const [contentType, setContentType] = useState('both');
-  
+
   // Quiz Settings
   const [includeQuiz, setIncludeQuiz] = useState(false);
   const [quizDuration, setQuizDuration] = useState('10');
   const [quizMarks, setQuizMarks] = useState('20');
-  
+
   // Generation State
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -30,7 +33,7 @@ const Generator = ({ backButton }) => {
   const [freeGenerations, setFreeGenerations] = useState(1000);
   const [totalUsed, setTotalUsed] = useState(0);
   const [disclaimerAcked, setDisclaimerAcked] = useState(false);
-  
+
   // Profile State
   const [profileData, setProfileData] = useState({
     fullName: 'Teacher',
@@ -44,7 +47,7 @@ const Generator = ({ backButton }) => {
   });
   const [profileImagePreview, setProfileImagePreview] = useState(null);
   const [profileSaved, setProfileSaved] = useState(false);
-  
+
   // Settings State
   const [settingsData, setSettingsData] = useState({
     emailNotifications: true,
@@ -239,31 +242,25 @@ const Generator = ({ backButton }) => {
   return (
     <>
       {loading && <GenieLoader message={progressMessage} />}
-      
+
       <div className={`dashboard-container ${loading ? 'hidden' : ''}`}>
         {/* Sidebar */}
         <aside className="dashboard-sidebar">
           <div className="sidebar-header">
-            <div className="tutor-profile-section">
-              <div className="tutor-avatar">TG</div>
-              <div className="tutor-info">
-                <div className="tutor-name">Teacher</div>
-                <div className="tutor-role">Free Plan</div>
-              </div>
-            </div>
+            {backButton && <div className="back-button-container">{backButton}</div>}
           </div>
 
           <nav className="sidebar-nav">
             <div className="nav-section">
               <div className="nav-section-title">Main</div>
-              <div 
+              <div
                 className={`nav-item ${activeSection === 'generator' ? 'active' : ''}`}
                 onClick={() => setActiveSection('generator')}
               >
                 <div className="nav-item-icon"><Sparkles size={20} /></div>
                 <span>Generate Lesson</span>
               </div>
-              <div 
+              <div
                 className={`nav-item ${activeSection === 'history' ? 'active' : ''}`}
                 onClick={() => setActiveSection('history')}
               >
@@ -275,14 +272,14 @@ const Generator = ({ backButton }) => {
 
             <div className="nav-section">
               <div className="nav-section-title">Account</div>
-              <div 
+              <div
                 className={`nav-item ${activeSection === 'profile' ? 'active' : ''}`}
                 onClick={() => setActiveSection('profile')}
               >
                 <div className="nav-item-icon"><User size={20} /></div>
                 <span>Profile</span>
               </div>
-              <div 
+              <div
                 className={`nav-item ${activeSection === 'settings' ? 'active' : ''}`}
                 onClick={() => setActiveSection('settings')}
               >
@@ -293,7 +290,7 @@ const Generator = ({ backButton }) => {
 
             <div className="nav-section">
               <div className="nav-section-title">Support</div>
-              <div 
+              <div
                 className={`nav-item ${activeSection === 'help' ? 'active' : ''}`}
                 onClick={() => setActiveSection('help')}
               >
@@ -302,6 +299,17 @@ const Generator = ({ backButton }) => {
               </div>
             </div>
           </nav>
+
+          {/* Profile at bottom */}
+          <div className="sidebar-footer">
+            <div className="tutor-profile-section">
+              <div className="tutor-avatar">TG</div>
+              <div className="tutor-info">
+                <div className="tutor-name">Teacher</div>
+                <div className="tutor-role">Free Plan</div>
+              </div>
+            </div>
+          </div>
         </aside>
 
         {/* Main Content */}
@@ -326,401 +334,383 @@ const Generator = ({ backButton }) => {
 
                 {!generated ? (
                   <>
-                    {backButton && <div style={{ marginBottom: '16px' }}>{backButton}</div>}
-                    
+
                     <div className="generator-card-header">
                       <div className="generator-card-icon">🧞</div>
                       <h2 className="generator-card-title">Create Your Lesson</h2>
                     </div>
 
-                    {/* Stats Cards */}
-                    <div className="stats-grid" style={{ marginBottom: '28px' }}>
-                      <div className="stat-card">
-                        <div className="stat-header">
-                          <div className="stat-icon accent">✨</div>
-                          <div className="stat-trend positive">
-                            <TrendingUp size={14} />
-                            Active
-                          </div>
-                        </div>
-                        <div className="stat-value">{freeGenerations}</div>
-                        <div className="stat-label">Free Generations Left</div>
+                    {/* Stats Cards - Compact */}
+                    <div className="stats-grid-compact" style={{ marginBottom: '28px' }}>
+                      <div className="stat-card-compact">
+                        <div className="stat-compact-value">{freeGenerations}</div>
+                        <div className="stat-compact-label">Free Left</div>
                       </div>
 
-                      <div className="stat-card">
-                        <div className="stat-header">
-                          <div className="stat-icon primary">📚</div>
-                        </div>
-                        <div className="stat-value">{totalUsed}</div>
-                        <div className="stat-label">Total Lessons Created</div>
+                      <div className="stat-card-compact">
+                        <div className="stat-compact-value">{totalUsed}</div>
+                        <div className="stat-compact-label">Created</div>
                       </div>
 
-                      <div className="stat-card">
-                        <div className="stat-header">
-                          <div className="stat-icon success">🎯</div>
-                        </div>
-                        <div className="stat-value">100%</div>
-                        <div className="stat-label">Success Rate</div>
+                      <div className="stat-card-compact">
+                        <div className="stat-compact-value">100%</div>
+                        <div className="stat-compact-label">Success</div>
                       </div>
 
-                      <div className="stat-card">
-                        <div className="stat-header">
-                          <div className="stat-icon info">⚡</div>
-                        </div>
-                        <div className="stat-value">~60s</div>
-                        <div className="stat-label">Avg. Generation Time</div>
+                      <div className="stat-card-compact">
+                        <div className="stat-compact-value">~60s</div>
+                        <div className="stat-compact-label">Avg Time</div>
                       </div>
                     </div>
 
                     <form className="generator-form" onSubmit={handleGenerate}>
-                {/* Topic Input - Featured */}
-                <div className="form-section featured-section">
-                  <div className="section-icon">📚</div>
-                  <div className="form-group">
-                    <label htmlFor="topic">What topic do you want to teach?</label>
-                    <input
-                      type="text"
-                      id="topic"
-                      className="topic-input"
-                      placeholder="e.g., Quantum Physics, Renaissance Art, Data Science..."
-                      value={topic}
-                      onChange={(e) => setTopic(e.target.value)}
-                      required
-                    />
-                    <div className="input-hint">💡 Be specific for better results</div>
-                  </div>
-                </div>
-
-                {/* Form Grid - 4 Options */}
-                <div className="form-grid">
-                  {/* Level */}
-                  <div className="form-section">
-                    <div className="section-icon">🎓</div>
-                    <div className="form-group">
-                      <label htmlFor="level">Student Level</label>
-                      <select
-                        id="level"
-                        value={level}
-                        onChange={(e) => setLevel(e.target.value)}
-                      >
-                        <option value="school">🏫 School</option>
-                        <option value="undergraduate">🎓 Undergraduate</option>
-                        <option value="postgraduate">📚 Postgraduate</option>
-                        <option value="professional">💼 Professional</option>
-                      </select>
-                      <div className="option-description">
-                        {level === 'school' && 'Beginner-friendly content'}
-                        {level === 'undergraduate' && 'Intermediate complexity'}
-                        {level === 'postgraduate' && 'Advanced topics'}
-                        {level === 'professional' && 'Industry-ready insights'}
+                      {/* Topic Input - Featured */}
+                      <div className="form-section featured-section">
+                        <div className="section-icon">📚</div>
+                        <div className="form-group">
+                          <label htmlFor="topic">What topic do you want to teach?</label>
+                          <input
+                            type="text"
+                            id="topic"
+                            className="topic-input"
+                            placeholder="e.g., Quantum Physics, Renaissance Art, Data Science..."
+                            value={topic}
+                            onChange={(e) => setTopic(e.target.value)}
+                            required
+                          />
+                          <div className="input-hint">💡 Be specific for better results</div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  {/* Duration */}
-                  <div className="form-section">
-                    <div className="section-icon">⏱️</div>
-                    <div className="form-group">
-                      <label htmlFor="duration">Lesson Duration</label>
-                      <select
-                        id="duration"
-                        value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
-                      >
-                        <option value="20">⚡ 20 min</option>
-                        <option value="30">📝 30 min</option>
-                        <option value="60">📖 60 min</option>
-                        <option value="90">🎯 90 min</option>
-                        <option value="120">🏆 120 min</option>
-                      </select>
-                      <div className="option-description">
-                        {duration === '20' && 'Quick overview'}
-                        {duration === '30' && 'Standard class'}
-                        {duration === '60' && 'Deep dive'}
-                        {duration === '90' && 'Comprehensive'}
-                        {duration === '120' && 'Extended course'}
-                      </div>
-                    </div>
-                  </div>
+                      {/* Form Grid - 4 Options */}
+                      <div className="form-grid">
+                        {/* Level */}
+                        <div className="form-section">
+                          <div className="section-icon">🎓</div>
+                          <div className="form-group">
+                            <label htmlFor="level">Student Level</label>
+                            <select
+                              id="level"
+                              value={level}
+                              onChange={(e) => setLevel(e.target.value)}
+                            >
+                              <option value="school">🏫 School</option>
+                              <option value="undergraduate">🎓 Undergraduate</option>
+                              <option value="postgraduate">📚 Postgraduate</option>
+                              <option value="professional">💼 Professional</option>
+                            </select>
+                            <div className="option-description">
+                              {level === 'school' && 'Beginner-friendly content'}
+                              {level === 'undergraduate' && 'Intermediate complexity'}
+                              {level === 'postgraduate' && 'Advanced topics'}
+                              {level === 'professional' && 'Industry-ready insights'}
+                            </div>
+                          </div>
+                        </div>
 
-                  {/* Content Type */}
-                  <div className="form-section">
-                    <div className="section-icon">📄</div>
-                    <div className="form-group">
-                      <label htmlFor="contentType">Format</label>
-                      <select
-                        id="contentType"
-                        value={contentType}
-                        onChange={(e) => setContentType(e.target.value)}
-                      >
-                        <option value="slides">🎨 Slides Only</option>
-                        <option value="notes">📝 Notes Only</option>
-                        <option value="both">🎯 Slides + Notes</option>
-                        <option value="interactive">🎮 Interactive</option>
-                      </select>
-                      <div className="option-description">
-                        {contentType === 'slides' && 'Visual presentations'}
-                        {contentType === 'notes' && 'Detailed notes'}
-                        {contentType === 'both' && 'Complete package'}
-                        {contentType === 'interactive' && 'With engagement'}
-                      </div>
-                    </div>
-                  </div>
+                        {/* Duration */}
+                        <div className="form-section">
+                          <div className="section-icon">⏱️</div>
+                          <div className="form-group">
+                            <label htmlFor="duration">Lesson Duration</label>
+                            <select
+                              id="duration"
+                              value={duration}
+                              onChange={(e) => setDuration(e.target.value)}
+                            >
+                              <option value="20">⚡ 20 min</option>
+                              <option value="30">📝 30 min</option>
+                              <option value="60">📖 60 min</option>
+                              <option value="90">🎯 90 min</option>
+                              <option value="120">🏆 120 min</option>
+                            </select>
+                            <div className="option-description">
+                              {duration === '20' && 'Quick overview'}
+                              {duration === '30' && 'Standard class'}
+                              {duration === '60' && 'Deep dive'}
+                              {duration === '90' && 'Comprehensive'}
+                              {duration === '120' && 'Extended course'}
+                            </div>
+                          </div>
+                        </div>
 
-                  {/* Quiz Toggle */}
-                  <div className="form-section">
-                    <div className="section-icon">🎮</div>
-                    <div className="form-group">
-                      <label className="quiz-checkbox-label">
-                        <input
-                          type="checkbox"
-                          checked={includeQuiz}
-                          onChange={(e) => setIncludeQuiz(e.target.checked)}
-                          className="quiz-checkbox"
-                        />
-                        <span className="checkbox-text">
-                          {includeQuiz ? '✓ Quiz Included' : 'Add Quiz'}
-                        </span>
-                      </label>
-                      <div className="option-description">
-                        {includeQuiz ? 'Assessment enabled' : 'Skip assessment'}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                        {/* Content Type */}
+                        <div className="form-section">
+                          <div className="section-icon">📄</div>
+                          <div className="form-group">
+                            <label htmlFor="contentType">Format</label>
+                            <select
+                              id="contentType"
+                              value={contentType}
+                              onChange={(e) => setContentType(e.target.value)}
+                            >
+                              <option value="slides">🎨 Slides Only</option>
+                              <option value="notes">📝 Notes Only</option>
+                              <option value="both">🎯 Slides + Notes</option>
+                              <option value="interactive">🎮 Interactive</option>
+                            </select>
+                            <div className="option-description">
+                              {contentType === 'slides' && 'Visual presentations'}
+                              {contentType === 'notes' && 'Detailed notes'}
+                              {contentType === 'both' && 'Complete package'}
+                              {contentType === 'interactive' && 'With engagement'}
+                            </div>
+                          </div>
+                        </div>
 
-                {/* Quiz Settings - When Enabled */}
-                {includeQuiz && (
-                  <div className="quiz-settings animated-section">
-                    <div className="quiz-settings-header">
-                      <div className="quiz-icon">⚙️</div>
-                      <h3>Customize Your Quiz</h3>
-                    </div>
-                    <div className="form-row">
-                      <div className="form-group">
-                        <label htmlFor="quizDuration">Quiz Duration</label>
-                        <input
-                          type="number"
-                          id="quizDuration"
-                          min="5"
-                          max="20"
-                          step="5"
-                          value={quizDuration}
-                          onChange={(e) => setQuizDuration(e.target.value)}
-                        />
-                        <div className="input-suffix">minutes</div>
+                        {/* Quiz Toggle */}
+                        <div className="form-section">
+                          <div className="section-icon">🎮</div>
+                          <div className="form-group">
+                            <label htmlFor="includeQuiz">Gamified Assessment</label>
+                            <div className="checkbox-wrapper">
+                              <input
+                                type="checkbox"
+                                id="includeQuiz"
+                                checked={includeQuiz}
+                                onChange={(e) => setIncludeQuiz(e.target.checked)}
+                                className="form-checkbox"
+                              />
+                              <span className="checkbox-label-text">
+                                {includeQuiz ? 'Quiz enabled' : 'Skip assessment'}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="form-group">
-                        <label htmlFor="quizMarks">Total Marks</label>
-                        <input
-                          type="number"
-                          id="quizMarks"
-                          min="10"
-                          max="50"
-                          step="5"
-                          value={quizMarks}
-                          onChange={(e) => setQuizMarks(e.target.value)}
-                        />
-                        <div className="input-suffix">points</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
 
-                {/* Cost & Submit */}
-                <div className="form-footer">
-                  <div className="token-cost-info">
-                    <div className="cost-icon">✨</div>
-                    <div className="cost-text">
-                      {freeGenerations > 0 ? (
-                        <>
-                          <div className="cost-label">Free Credits Left</div>
-                          <div className="cost-value">{freeGenerations} of 1000</div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="cost-label">Upgrade Required</div>
-                          <div className="cost-value">No free generations left</div>
-                        </>
+                      {/* Quiz Settings - When Enabled */}
+                      {includeQuiz && (
+                        <div className="quiz-settings animated-section">
+                          <div className="quiz-settings-header">
+                            <div className="quiz-icon">⚙️</div>
+                            <h3>Customize Your Quiz</h3>
+                          </div>
+                          <div className="form-row">
+                            <div className="form-group">
+                              <label htmlFor="quizDuration">Quiz Duration</label>
+                              <input
+                                type="number"
+                                id="quizDuration"
+                                min="5"
+                                max="20"
+                                step="5"
+                                value={quizDuration}
+                                onChange={(e) => setQuizDuration(e.target.value)}
+                              />
+                              <div className="input-suffix">minutes</div>
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="quizMarks">Total Marks</label>
+                              <input
+                                type="number"
+                                id="quizMarks"
+                                min="10"
+                                max="50"
+                                step="5"
+                                value={quizMarks}
+                                onChange={(e) => setQuizMarks(e.target.value)}
+                              />
+                              <div className="input-suffix">points</div>
+                            </div>
+                          </div>
+                        </div>
                       )}
-                    </div>
-                  </div>
 
-                  <button
-                    type="submit"
-                    className={`btn btn-generate ${!canGenerate ? 'disabled' : ''} ${loading ? 'loading' : ''}`}
-                    disabled={loading || !canGenerate || !topic.trim()}
-                  >
-                    {loading ? (
-                      <>
-                        <span className="btn-spinner"></span>
-                        Generating...
-                      </>
-                    ) : (
-                      <>
-                        <span className="btn-icon">🚀</span>
-                        Generate Lesson
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
+                      {/* Cost & Submit */}
+                      <div className="form-footer">
+                        <div className="token-cost-info">
+                          <div className="cost-icon">✨</div>
+                          <div className="cost-text">
+                            {freeGenerations > 0 ? (
+                              <>
+                                <div className="cost-label">Free Credits Left</div>
+                                <div className="cost-value">{freeGenerations} of 1000</div>
+                              </>
+                            ) : (
+                              <>
+                                <div className="cost-label">Upgrade Required</div>
+                                <div className="cost-value">No free generations left</div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+
+                        <button
+                          type="submit"
+                          className={`btn btn-generate ${!canGenerate ? 'disabled' : ''} ${loading ? 'loading' : ''}`}
+                          disabled={loading || !canGenerate || !topic.trim()}
+                        >
+                          {loading ? (
+                            <>
+                              <span className="btn-spinner"></span>
+                              Generating...
+                            </>
+                          ) : (
+                            <>
+                              <span className="btn-icon">🚀</span>
+                              Generate Lesson
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </form>
                   </>
                 ) : null}
 
-          {/* Lesson Outputs */}
-          {generated && !loading && (
-            <div className="lesson-outputs">
-              
-              {/* Lesson Plan Header */}
-              <div className="lesson-header">
-                <h2>📑 Lesson Plan</h2>
-                <div className="lesson-meta">
-                  <span>📌 <strong>{lessonState.lesson_plan.title}</strong></span>
-                  <span>🎓 {lessonState.lesson_plan.level}</span>
-                  <span>⏱️ {lessonState.lesson_plan.duration}</span>
-                </div>
-              </div>
+                {/* Lesson Outputs */}
+                {generated && !loading && (
+                  <div className="lesson-outputs">
 
-              {/* Learning Objectives */}
-              <div className="lesson-section">
-                <h3>🎯 Learning Objectives</h3>
-                <ul className="objectives-list">
-                  {lessonState.objectives.map((obj, idx) => (
-                    <li key={idx}>
-                      <CheckCircle size={20} className="check-icon" />
-                      {obj}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    {/* Lesson Plan Header */}
+                    <div className="lesson-header">
+                      <h2>📑 Lesson Plan</h2>
+                      <div className="lesson-meta">
+                        <span>📌 <strong>{lessonState.lesson_plan.title}</strong></span>
+                        <span>🎓 {lessonState.lesson_plan.level}</span>
+                        <span>⏱️ {lessonState.lesson_plan.duration}</span>
+                      </div>
+                    </div>
 
-              {/* Lesson Sections */}
-              <div className="lesson-sections">
-                <h3>📚 Lesson Content</h3>
-                {lessonState.sections.map((section, idx) => (
-                  <div key={idx} className="section-card">
-                    <h4>📌 {section.title}</h4>
-                    <p>{section.content}</p>
-                  </div>
-                ))}
-              </div>
+                    {/* Learning Objectives */}
+                    <div className="lesson-section">
+                      <h3>🎯 Learning Objectives</h3>
+                      <ul className="objectives-list">
+                        {lessonState.objectives.map((obj, idx) => (
+                          <li key={idx}>
+                            <CheckCircle size={20} className="check-icon" />
+                            {obj}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-              {/* Key Takeaways */}
-              <div className="lesson-section">
-                <h3>🔑 Key Takeaways</h3>
-                <ul className="takeaways-list">
-                  {lessonState.key_takeaways.map((takeaway, idx) => (
-                    <li key={idx}>
-                      <TrendingUp size={18} className="trend-icon" />
-                      {takeaway}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    {/* Lesson Sections */}
+                    <div className="lesson-sections">
+                      <h3>📚 Lesson Content</h3>
+                      {lessonState.sections.map((section, idx) => (
+                        <div key={idx} className="section-card">
+                          <h4>📌 {section.title}</h4>
+                          <p>{section.content}</p>
+                        </div>
+                      ))}
+                    </div>
 
-              {/* Web Resources */}
-              <div className="lesson-section">
-                <h3>🌐 Web Learning Resources</h3>
-                <ul className="resources-list">
-                  {lessonState.resources.map((resource, idx) => (
-                    <li key={idx}>
-                      <a href={resource.url} target="_blank" rel="noopener noreferrer">
-                        🔗 {resource.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    {/* Key Takeaways */}
+                    <div className="lesson-section">
+                      <h3>🔑 Key Takeaways</h3>
+                      <ul className="takeaways-list">
+                        {lessonState.key_takeaways.map((takeaway, idx) => (
+                          <li key={idx}>
+                            <TrendingUp size={18} className="trend-icon" />
+                            {takeaway}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-              {/* Quiz Section */}
-              {includeQuiz && lessonState.quiz && (
-                <div className="lesson-section">
-                  <h3>🎮 Gamified Quiz</h3>
-                  <div className="quiz-info">
-                    <span>⏱️ Duration: {lessonState.quiz.duration} minutes</span>
-                    <span>🏆 Total Marks: {lessonState.quiz.marks}</span>
-                  </div>
+                    {/* Web Resources */}
+                    <div className="lesson-section">
+                      <h3>🌐 Web Learning Resources</h3>
+                      <ul className="resources-list">
+                        {lessonState.resources.map((resource, idx) => (
+                          <li key={idx}>
+                            <a href={resource.url} target="_blank" rel="noopener noreferrer">
+                              🔗 {resource.title}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                  <div className="quiz-questions">
-                    {lessonState.quiz.questions.map((question, qIdx) => (
-                      <div key={qIdx} className="quiz-card">
-                        <h4>Scenario {qIdx + 1}</h4>
-                        <p className="scenario-text">{question.scenario}</p>
-                        <p className="question-text"><strong>❓ {question.question}</strong></p>
-                        
-                        <div className="options">
-                          {Object.entries(question.options).map(([key, value]) => (
-                            <div key={key} className="option">
-                              <strong>{key}.</strong> {value}
+                    {/* Quiz Section */}
+                    {includeQuiz && lessonState.quiz && (
+                      <div className="lesson-section">
+                        <h3>🎮 Gamified Quiz</h3>
+                        <div className="quiz-info">
+                          <span>⏱️ Duration: {lessonState.quiz.duration} minutes</span>
+                          <span>🏆 Total Marks: {lessonState.quiz.marks}</span>
+                        </div>
+
+                        <div className="quiz-questions">
+                          {lessonState.quiz.questions.map((question, qIdx) => (
+                            <div key={qIdx} className="quiz-card">
+                              <h4>Scenario {qIdx + 1}</h4>
+                              <p className="scenario-text">{question.scenario}</p>
+                              <p className="question-text"><strong>❓ {question.question}</strong></p>
+
+                              <div className="options">
+                                {Object.entries(question.options).map(([key, value]) => (
+                                  <div key={key} className="option">
+                                    <strong>{key}.</strong> {value}
+                                  </div>
+                                ))}
+                              </div>
+
+                              <div className="answer-info">
+                                <p className="correct-answer">✅ Correct Answer: <strong>{question.correct_option}</strong></p>
+                                <p className="explanation">💡 Explanation: {question.explanation}</p>
+                              </div>
                             </div>
                           ))}
                         </div>
-
-                        <div className="answer-info">
-                          <p className="correct-answer">✅ Correct Answer: <strong>{question.correct_option}</strong></p>
-                          <p className="explanation">💡 Explanation: {question.explanation}</p>
-                        </div>
                       </div>
-                    ))}
+                    )}
+
+                    {/* Downloads */}
+                    <div className="lesson-section downloads-section">
+                      <h3>📥 Download Resources</h3>
+                      <div className="download-buttons">
+                        <button
+                          className={`btn btn-accent ${!disclaimerAcked ? 'disabled' : ''}`}
+                          disabled={!disclaimerAcked}
+                        >
+                          <Download size={20} /> 📊 Download PPT
+                        </button>
+                        <button
+                          className={`btn btn-accent ${!disclaimerAcked ? 'disabled' : ''}`}
+                          disabled={!disclaimerAcked}
+                        >
+                          <Download size={20} /> 📄 Download PDF
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Disclaimer */}
+                    <div className="disclaimer-section">
+                      <AlertCircle size={24} className="alert-icon" />
+                      <div className="disclaimer-content">
+                        <p>
+                          <strong>⚠️ Important Disclaimer:</strong> These AI-generated materials are <strong>supplemental only</strong>.
+                          Faculty and educators are advised to apply their expertise, creativity, and contextual judgment
+                          before using these materials in classroom settings.
+                        </p>
+                        <label className="checkbox-label">
+                          <input
+                            type="checkbox"
+                            checked={disclaimerAcked}
+                            onChange={(e) => setDisclaimerAcked(e.target.checked)}
+                          />
+                          I acknowledge and understand this disclaimer
+                        </label>
+                      </div>
+                    </div>
+
+                    {/* Explore More Button */}
+                    <button
+                      className="btn btn-outline explore-btn"
+                      onClick={() => {
+                        setGenerated(false);
+                        setTopic('');
+                        setProgress(0);
+                        setProgressMessage('');
+                        setDisclaimerAcked(false);
+                      }}
+                    >
+                      🔍 Generate Another Lesson
+                    </button>
                   </div>
-                </div>
-              )}
-
-              {/* Downloads */}
-              <div className="lesson-section downloads-section">
-                <h3>📥 Download Resources</h3>
-                <div className="download-buttons">
-                  <button 
-                    className={`btn btn-accent ${!disclaimerAcked ? 'disabled' : ''}`}
-                    disabled={!disclaimerAcked}
-                  >
-                    <Download size={20} /> 📊 Download PPT
-                  </button>
-                  <button 
-                    className={`btn btn-accent ${!disclaimerAcked ? 'disabled' : ''}`}
-                    disabled={!disclaimerAcked}
-                  >
-                    <Download size={20} /> 📄 Download PDF
-                  </button>
-                </div>
-              </div>
-
-              {/* Disclaimer */}
-              <div className="disclaimer-section">
-                <AlertCircle size={24} className="alert-icon" />
-                <div className="disclaimer-content">
-                  <p>
-                    <strong>⚠️ Important Disclaimer:</strong> These AI-generated materials are <strong>supplemental only</strong>. 
-                    Faculty and educators are advised to apply their expertise, creativity, and contextual judgment 
-                    before using these materials in classroom settings.
-                  </p>
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={disclaimerAcked}
-                      onChange={(e) => setDisclaimerAcked(e.target.checked)}
-                    />
-                    I acknowledge and understand this disclaimer
-                  </label>
-                </div>
-              </div>
-
-              {/* Explore More Button */}
-              <button
-                className="btn btn-outline explore-btn"
-                onClick={() => {
-                  setGenerated(false);
-                  setTopic('');
-                  setProgress(0);
-                  setProgressMessage('');
-                  setDisclaimerAcked(false);
-                }}
-              >
-                🔍 Generate Another Lesson
-              </button>
-            </div>
-          )}
+                )}
               </div>
 
               {/* Recent Generations Sidebar */}
@@ -801,7 +791,7 @@ const Generator = ({ backButton }) => {
                 <div className="generator-card-icon">👤</div>
                 <h2 className="generator-card-title">Edit Profile</h2>
               </div>
-              
+
               {profileSaved && (
                 <div style={{
                   margin: '20px 0',
@@ -828,7 +818,7 @@ const Generator = ({ backButton }) => {
                       width: '140px',
                       height: '140px',
                       borderRadius: '50%',
-                      background: profileImagePreview 
+                      background: profileImagePreview
                         ? `url(${profileImagePreview}) center/cover`
                         : 'linear-gradient(135deg, var(--primary), var(--accent))',
                       display: 'flex',
@@ -860,28 +850,28 @@ const Generator = ({ backButton }) => {
                       boxShadow: 'var(--shadow)',
                       transition: 'transform 0.3s ease'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                      onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                      onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                     >
                       <Camera size={18} color="white" />
-                      <input 
-                        type="file" 
+                      <input
+                        type="file"
                         accept="image/*"
                         style={{ display: 'none' }}
                         onChange={(e) => {
                           const file = e.target.files[0];
                           if (file) {
-                            setProfileData({...profileData, profileImage: file});
+                            setProfileData({ ...profileData, profileImage: file });
                             setProfileImagePreview(URL.createObjectURL(file));
                           }
                         }}
                       />
                     </label>
                   </div>
-                  <h3 style={{ 
-                    fontSize: '24px', 
-                    fontWeight: '700', 
-                    color: 'var(--text-dark)', 
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    color: 'var(--text-dark)',
                     marginTop: '20px',
                     marginBottom: '4px'
                   }}>
@@ -905,7 +895,7 @@ const Generator = ({ backButton }) => {
                         type="text"
                         className="profile-input"
                         value={profileData.fullName}
-                        onChange={(e) => setProfileData({...profileData, fullName: e.target.value})}
+                        onChange={(e) => setProfileData({ ...profileData, fullName: e.target.value })}
                         placeholder="Enter your full name"
                         required
                       />
@@ -921,7 +911,7 @@ const Generator = ({ backButton }) => {
                         type="email"
                         className="profile-input"
                         value={profileData.email}
-                        onChange={(e) => setProfileData({...profileData, email: e.target.value})}
+                        onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                         placeholder="your.email@example.com"
                         required
                       />
@@ -937,7 +927,7 @@ const Generator = ({ backButton }) => {
                         type="tel"
                         className="profile-input"
                         value={profileData.phone}
-                        onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
+                        onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                         placeholder="+1 (555) 000-0000"
                       />
                     </div>
@@ -952,7 +942,7 @@ const Generator = ({ backButton }) => {
                         type="text"
                         className="profile-input"
                         value={profileData.location}
-                        onChange={(e) => setProfileData({...profileData, location: e.target.value})}
+                        onChange={(e) => setProfileData({ ...profileData, location: e.target.value })}
                         placeholder="City, Country"
                       />
                     </div>
@@ -967,7 +957,7 @@ const Generator = ({ backButton }) => {
                         type="text"
                         className="profile-input"
                         value={profileData.institution}
-                        onChange={(e) => setProfileData({...profileData, institution: e.target.value})}
+                        onChange={(e) => setProfileData({ ...profileData, institution: e.target.value })}
                         placeholder="Your institution name"
                       />
                     </div>
@@ -982,7 +972,7 @@ const Generator = ({ backButton }) => {
                         type="text"
                         className="profile-input"
                         value={profileData.subject}
-                        onChange={(e) => setProfileData({...profileData, subject: e.target.value})}
+                        onChange={(e) => setProfileData({ ...profileData, subject: e.target.value })}
                         placeholder="e.g., Mathematics, Science"
                       />
                     </div>
@@ -997,7 +987,7 @@ const Generator = ({ backButton }) => {
                     <textarea
                       className="profile-textarea"
                       value={profileData.bio}
-                      onChange={(e) => setProfileData({...profileData, bio: e.target.value})}
+                      onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
                       placeholder="Tell us about yourself, your teaching experience, and interests..."
                       rows="4"
                     />
@@ -1044,7 +1034,7 @@ const Generator = ({ backButton }) => {
                 <div className="generator-card-icon">⚙️</div>
                 <h2 className="generator-card-title">Settings</h2>
               </div>
-              
+
               {settingsSaved && (
                 <div style={{
                   margin: '20px 0',
@@ -1080,10 +1070,10 @@ const Generator = ({ backButton }) => {
                         </div>
                       </div>
                       <label className="settings-toggle">
-                        <input 
-                          type="checkbox" 
+                        <input
+                          type="checkbox"
                           checked={settingsData.emailNotifications}
-                          onChange={(e) => setSettingsData({...settingsData, emailNotifications: e.target.checked})}
+                          onChange={(e) => setSettingsData({ ...settingsData, emailNotifications: e.target.checked })}
                         />
                         <span className="toggle-slider"></span>
                       </label>
@@ -1097,10 +1087,10 @@ const Generator = ({ backButton }) => {
                         </div>
                       </div>
                       <label className="settings-toggle">
-                        <input 
-                          type="checkbox" 
+                        <input
+                          type="checkbox"
                           checked={settingsData.pushNotifications}
-                          onChange={(e) => setSettingsData({...settingsData, pushNotifications: e.target.checked})}
+                          onChange={(e) => setSettingsData({ ...settingsData, pushNotifications: e.target.checked })}
                         />
                         <span className="toggle-slider"></span>
                       </label>
@@ -1124,10 +1114,10 @@ const Generator = ({ backButton }) => {
                         </div>
                       </div>
                       <label className="settings-toggle">
-                        <input 
-                          type="checkbox" 
+                        <input
+                          type="checkbox"
                           checked={settingsData.autoSave}
-                          onChange={(e) => setSettingsData({...settingsData, autoSave: e.target.checked})}
+                          onChange={(e) => setSettingsData({ ...settingsData, autoSave: e.target.checked })}
                         />
                         <span className="toggle-slider"></span>
                       </label>
@@ -1140,10 +1130,10 @@ const Generator = ({ backButton }) => {
                           <p>Choose your preferred language</p>
                         </div>
                       </div>
-                      <select 
+                      <select
                         className="settings-select"
                         value={settingsData.language}
-                        onChange={(e) => setSettingsData({...settingsData, language: e.target.value})}
+                        onChange={(e) => setSettingsData({ ...settingsData, language: e.target.value })}
                       >
                         <option>English</option>
                         <option>Spanish</option>
@@ -1170,10 +1160,10 @@ const Generator = ({ backButton }) => {
                           <p>Control who can see your profile</p>
                         </div>
                       </div>
-                      <select 
+                      <select
                         className="settings-select"
                         value={settingsData.visibility}
-                        onChange={(e) => setSettingsData({...settingsData, visibility: e.target.value})}
+                        onChange={(e) => setSettingsData({ ...settingsData, visibility: e.target.value })}
                       >
                         <option value="public">Public</option>
                         <option value="private">Private</option>
@@ -1386,9 +1376,9 @@ const Generator = ({ backButton }) => {
                       <a href="tel:+918709684588" className="contact-info-link">Call Now →</a>
                     </div>
                   </div>
-                  <div style={{marginTop: '32px', padding: '20px', background: 'var(--bg-light)', borderRadius: '12px', border: '1.5px solid rgba(30, 58, 138, 0.1)'}}>
-                    <h4 style={{fontSize: '16px', fontWeight: '700', color: 'var(--text-dark)', marginBottom: '12px'}}>Response Time</h4>
-                    <p style={{fontSize: '14px', color: 'var(--text-light)', lineHeight: '1.6'}}>We typically respond within 24 hours during business days. For urgent issues, please call our support line.</p>
+                  <div style={{ marginTop: '32px', padding: '20px', background: 'var(--bg-light)', borderRadius: '12px', border: '1.5px solid rgba(30, 58, 138, 0.1)' }}>
+                    <h4 style={{ fontSize: '16px', fontWeight: '700', color: 'var(--text-dark)', marginBottom: '12px' }}>Response Time</h4>
+                    <p style={{ fontSize: '14px', color: 'var(--text-light)', lineHeight: '1.6' }}>We typically respond within 24 hours during business days. For urgent issues, please call our support line.</p>
                   </div>
                 </div>
               </div>

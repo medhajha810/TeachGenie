@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles, ArrowRight, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../styles/cta.css';
 
@@ -38,6 +38,10 @@ const CTA = () => {
             <Sparkles size={20} />
             Start Your Free Trial Now
             <ArrowRight size={20} />
+          </Link>
+          <Link to="/team" className="btn btn-secondary cta-btn">
+            <Users size={20} />
+            Meet Our Team
           </Link>
         </div>
       </div>
