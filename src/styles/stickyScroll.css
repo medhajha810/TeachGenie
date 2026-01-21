@@ -1,0 +1,165 @@
+/* Sticky Scroll Styles */
+.sticky-scroll-container {
+    height: 38rem;
+    /* Increased height */
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    column-gap: 3rem;
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    /* Sunset / Aurora Gradient Background */
+    background: linear-gradient(135deg, rgba(254, 249, 195, 0.4) 0%, rgba(253, 186, 116, 0.2) 50%, rgba(244, 114, 182, 0.1) 100%);
+    border: 1px solid rgba(251, 146, 60, 0.3);
+
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sticky-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Side Slider Progress Bar */
+.sticky-scroll-progress-bar {
+    position: absolute;
+    right: 1.5rem;
+    top: 3rem;
+    bottom: 3rem;
+    width: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 99px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.sticky-scroll-progress-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #A97CF8, #F38CB8, #FDCC92);
+    transform-origin: top;
+    position: absolute;
+    /* Ensure it stays at top */
+    top: 0;
+    left: 0;
+}
+
+.sticky-scroll-content-wrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding-left: 1rem;
+    /* Reduced right padding here to allow card to be closer if needed, 
+       but we want to shift card left, so we might want LESS gap or MORE margin on the right of the whole container.
+       Let's assume "shift image to left" means bringing it closer to center/text.
+    */
+    padding-right: 2rem;
+    width: 100%;
+}
+
+.sticky-scroll-text-col {
+    max-width: 45rem;
+    /* Slightly wider text */
+    padding-right: 4rem;
+    /* More space between text and card */
+}
+
+.sticky-scroll-item {
+    margin-top: 8rem;
+    margin-bottom: 10rem;
+}
+
+.sticky-scroll-title {
+    font-size: 2.25rem;
+    /* Larger Title */
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+}
+
+.sticky-scroll-description {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    /* Darker text for readability if needed, or stick to variable */
+    max-width: 38rem;
+    margin-top: 1.5rem;
+    line-height: 1.85;
+    /* Better readability for long text */
+    font-family: 'Inter', sans-serif;
+    /* Ensure clean font */
+    font-weight: 400;
+}
+
+.sticky-scroll-card {
+    display: block;
+    /* Hidden on mobile by default, handled by media query */
+    height: 22rem;
+    width: 26rem;
+    /* Wider card */
+    border-radius: 1.5rem;
+    /* Smoother */
+    position: sticky;
+    top: 6rem;
+    /* Visual balance */
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    /* Stronger shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    /* Shift left: add margin-right */
+    margin-right: 4rem;
+}
+
+.sticky-scroll-card-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+@media (max-width: 1024px) {
+    .sticky-scroll-card {
+        display: none;
+    }
+
+    .sticky-scroll-container {
+        height: auto;
+        overflow: visible;
+        padding-right: 1.5rem;
+        display: block;
+        /* Stack on mobile */
+    }
+
+    .sticky-scroll-progress-bar {
+        display: none;
+    }
+
+    .sticky-scroll-item {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .sticky-scroll-description {
+        max-width: 100%;
+    }
+
+    .sticky-scroll-text-col {
+        padding-right: 0;
+        max-width: 100%;
+    }
+}
