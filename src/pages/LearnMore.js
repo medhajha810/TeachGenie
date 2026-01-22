@@ -20,7 +20,7 @@ export default function LearnMore() {
             <span>Complete Tutor Guide</span>
           </div>
           <h1 className="learn-more-title">
-            How to Use Teach Genie
+            See the Magic Behind TeachGenie
           </h1>
           <p className="learn-more-subtitle">
             Transform hours of lesson planning into minutes. Free up your time for what truly matters - inspiring and connecting with your students.

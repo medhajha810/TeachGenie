@@ -34,7 +34,7 @@ export const ContainerScroll = ({
     return (
         <div className="container-scroll-wrapper" ref={containerRef}>
             <div className="container-scroll-inner">
-                <Header translate={translate} titleComponent={titleComponent} />
+                {titleComponent && <Header translate={translate} titleComponent={titleComponent} />}
                 <Card rotate={rotate} translate={translate} scale={scale}>
                     {children}
                 </Card>
@@ -68,6 +68,7 @@ export const Card = ({
             style={{
                 rotateX: rotate,
                 scale,
+                transformStyle: 'preserve-3d',
             }}
             className="container-scroll-card">
             <div className="container-scroll-card-inner">

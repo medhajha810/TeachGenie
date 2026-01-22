@@ -224,11 +224,11 @@
   }
 
   .floating-nav-menu {
-    display: none;
+    display: none !important;
   }
 
-  .nav-cta-btn.desktop-only {
-    display: none;
+  .nav-cta-btn {
+    display: none !important;
   }
 
   .navbar-logo-text {
@@ -236,7 +236,7 @@
   }
 
   .mobile-menu-btn {
-    display: flex;
+    display: flex !important;
   }
 }
 

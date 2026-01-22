@@ -73,13 +73,21 @@
     border-radius: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     position: relative;
-    z-index: 10;
-    /* Ensure card is above header */
+    transform-style: preserve-3d;
+}
+
+.container-scroll-card-inner {
+    padding: 2rem;
+    border-radius: 1.5rem;
+    background-color: transparent;
+    transform-style: preserve-3d;
+    /* Clean look */
 }
 
 /* Team Content Styles inside the card */
 .team-scroll-content {
     padding: 2rem;
+    transform-style: preserve-3d;
 }
 
 .team-member-row {
@@ -95,8 +103,9 @@
     border-radius: 24px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; Removed to allow 3D lift */
     border: 1px solid rgba(255, 255, 255, 0.15);
+    pointer-events: auto !important;
     /* Brighter border */
     min-height: 400px;
     transform-style: flat;
@@ -249,24 +258,100 @@
 }
 
 @media (max-width: 768px) {
+    .container-scroll-wrapper {
+        min-height: auto;
+        padding: 0.5rem;
+        margin-top: 0;
+    }
+
+    .container-scroll-card {
+        border-radius: 20px;
+        padding: 0.25rem;
+    }
+
+    .container-scroll-card-inner {
+        padding: 1rem;
+    }
+
+    .team-scroll-content {
+        padding: 1rem;
+    }
 
     .team-member-row,
     .team-member-row.reverse {
         flex-direction: column;
         text-align: center;
+        padding: 1.5rem;
+        gap: 1.5rem;
+        min-height: auto;
     }
 
     .team-member-image-container {
-        width: 100%;
-        flex: 0 0 250px;
-        height: 250px;
+        width: 200px;
+        flex: 0 0 200px;
+        height: 200px;
+        margin: 0 auto;
     }
 
     .team-member-details {
         text-align: center;
+        padding: 0.5rem;
+    }
+
+    .team-member-name {
+        font-size: 1.8rem;
+    }
+
+    .team-member-role {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .team-member-bio {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
     }
 
     .team-social-links {
         justify-content: center;
+    }
+
+    .social-link {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-scroll-wrapper {
+        padding: 0.25rem;
+    }
+
+    .team-scroll-content {
+        padding: 0.5rem;
+    }
+
+    .team-member-row {
+        padding: 1rem;
+        gap: 1rem;
+        border-radius: 16px;
+    }
+
+    .team-member-image-container {
+        width: 160px;
+        flex: 0 0 160px;
+        height: 160px;
+    }
+
+    .team-member-name {
+        font-size: 1.5rem;
+    }
+
+    .team-member-role {
+        font-size: 0.9rem;
+    }
+
+    .team-member-bio {
+        font-size: 0.9rem !important;
     }
 }

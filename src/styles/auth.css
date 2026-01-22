@@ -116,10 +116,12 @@
     opacity: 0;
     transform: translateY(-20px) rotateX(90deg);
   }
+
   50% {
     opacity: 0.5;
     transform: translateY(-10px) rotateX(45deg);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) rotateX(0deg);
@@ -531,10 +533,25 @@
 @media (max-width: 768px) {
   .auth-container {
     padding: 20px;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .auth-wrapper {
+    height: auto;
+    min-height: auto;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .auth-card {
     padding: 30px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .auth-logo h1 {

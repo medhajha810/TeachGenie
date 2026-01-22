@@ -49,7 +49,7 @@ const LoadingScreen = ({ onComplete }) => {
 
         {/* Subtitle */}
         <div className="loading-subtitle">
-          Get ready to transform teaching using AI agents
+          Get ready to Revolutionize teaching using AI agents
         </div>
 
         {/* Loading Bar */}

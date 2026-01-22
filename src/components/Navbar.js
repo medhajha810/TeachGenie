@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { Home, Package, Lightbulb, Sparkles, Sun, Moon, Wand2, Droplets, Gem, Menu, X, Users } from 'lucide-react';
+import ComingSoonModal from './ComingSoonModal';
 import '../styles/navbar.css';
 
 export default function Navbar() {
@@ -9,6 +10,7 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showComingSoonModal, setShowComingSoonModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,8 +47,7 @@ export default function Navbar() {
     { name: 'Features', link: '#features', icon: <Sparkles size={20} /> },
     { name: 'Packages', link: '#packages', icon: <Package size={20} /> },
     { name: 'How It Works', link: '#how-it-works', icon: <Lightbulb size={20} /> },
-    { name: 'Team', link: '/team', icon: <Users size={20} />, isRoute: true },
-    { name: 'Dashboard', link: '/generator', icon: <Wand2 size={20} />, isRoute: true },
+    { name: 'Dashboard', link: '#', icon: <Wand2 size={20} />, isComingSoon: true },
   ];
 
   const handleNavClick = () => {
@@ -66,7 +67,16 @@ export default function Navbar() {
           <ul className="floating-nav-menu">
             {navItems.map((item, index) => (
               <li key={index}>
-                {item.isRoute ? (
+                {item.isComingSoon ? (
+                  <button
+                    onClick={() => setShowComingSoonModal(true)}
+                    className="nav-item"
+                    style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                  >
+                    <span className="nav-icon">{item.icon}</span>
+                    <span className="nav-text">{item.name}</span>
+                  </button>
+                ) : item.isRoute ? (
                   <Link to={item.link} className="nav-item">
                     <span className="nav-icon">{item.icon}</span>
                     <span className="nav-text">{item.name}</span>
@@ -93,7 +103,7 @@ export default function Navbar() {
               {theme === 'ocean' && <Droplets size={20} />}
               {theme === 'elegant' && <Gem size={20} />}
             </button>
-            <Link to="/signup" className="nav-cta-btn desktop-only">
+            <Link to="/signup" className="nav-cta-btn">
               Get Started
             </Link>
 
@@ -115,7 +125,19 @@ export default function Navbar() {
           <ul className="mobile-nav-list">
             {navItems.map((item, index) => (
               <li key={index}>
-                {item.isRoute ? (
+                {item.isComingSoon ? (
+                  <button
+                    onClick={() => {
+                      setShowComingSoonModal(true);
+                      handleNavClick();
+                    }}
+                    className="mobile-nav-item"
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', width: '100%', textAlign: 'left' }}
+                  >
+                    <span className="mobile-nav-icon">{item.icon}</span>
+                    <span className="mobile-nav-text">{item.name}</span>
+                  </button>
+                ) : item.isRoute ? (
                   <Link to={item.link} className="mobile-nav-item" onClick={handleNavClick}>
                     <span className="mobile-nav-icon">{item.icon}</span>
                     <span className="mobile-nav-text">{item.name}</span>
@@ -139,6 +161,13 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="mobile-overlay" onClick={() => setMobileMenuOpen(false)} />
       )}
+
+      {/* Coming Soon Modal */}
+      <ComingSoonModal
+        isOpen={showComingSoonModal}
+        onClose={() => setShowComingSoonModal(false)}
+        featureName="Dashboard"
+      />
     </>
   );
 }

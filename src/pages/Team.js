@@ -13,10 +13,10 @@ const Team = () => {
     const teamMembers = [
         {
             id: 1,
-            name: 'Lovi Raj Gupta',
+            name: 'Lovi Raj Gupta, PhD',
             role: 'Founder & CEO',
             avatar: '/team/LovirajSir.jpg',
-            bio: 'Full-stack developer passionate about building innovative educational technology solutions.',
+            bio: 'Founder & CEO of TeachGenie.ai and Pro Vice Chancellor at Lovely Professional University. A Ph.D. in Bioinformatics with advanced degrees from IIT Kanpur and MITS Gwalior, he is a globally recognized education and technology leader with 230+ patents filed, 7 authored books, and expertise spanning AI, IoT, robotics, bioinformatics, and data analytics. Dr. Gupta has held roles as Leading Scientist at Southern Federal University (Russia), collaborated on research with Stanford University, and received honors such as the MIT Technology Review Grand Challenge Award and the Infosys InfyMakers Award. His vision drives TeachGenie.ai’s mission to transform learning through intelligent, research-backed technology.',
             color: '#8b5cf6', // Updated to Lavender for consistency
             isLead: true,
             social: {
@@ -26,9 +26,9 @@ const Team = () => {
         {
             id: 2,
             name: 'Souhardya Bose',
-            role: 'Contributor',
+            role: 'Founding Contributor',
             avatar: 'https://ui-avatars.com/api/?name=Souhardya+Bose&size=200&background=8b5cf6&color=fff&bold=true',
-            bio: 'Data scientist and machine learning engineer enhancing AI-powered features.',
+            bio: 'An accomplished academic leader, IEEE LPU Chairperson and Founding Member, and a NEP SAARTHI appointed by the UGC, Ministry of Education. A committed AI research scholar and community builder, he actively contributes to advancing technology-driven education, policy implementation, and collaborative academic ecosystems. Guided by a passion for knowledge, innovation, and inner balance, he continues his journey in learning, leadership, and the pursuit of peace.',
             color: '#8b5cf6',
             isLead: false,
             social: {
@@ -38,7 +38,7 @@ const Team = () => {
         {
             id: 3,
             name: 'Golu Kumar',
-            role: 'Contributor',
+            role: 'Founding Contributor',
             avatar: '/team/Golu.png',
             bio: 'Core engineering contributor responsible for designing and scaling the technical foundation of the platform. Experience spans full-stack development, cloud infrastructure, and applied AI, with a strong focus on building secure, reliable, and maintainable systems. Key efforts include clean system architecture, performance optimization, and transforming product requirements into production-ready solutions that support long-term growth.',
             color: '#8b5cf6',
@@ -50,7 +50,7 @@ const Team = () => {
         {
             id: 4,
             name: 'Medha Jha',
-            role: 'Contributor',
+            role: 'Founding Contributor',
             avatar: '/team/Medha.jpg',
             bio: 'Product builder and computer science engineer focused on designing scalable SaaS platforms with strong emphasis on clarity, performance, and real-world impact. Background includes data analysis, system design, and full-stack development, enabling translation of complex requirements into reliable, user-centric solutions. Motivation stems from a deep interest in solving practical problems faced by growing teams and digital businesses, especially around efficiency, decision-making, and automation.',
             color: '#8b5cf6',
@@ -101,7 +101,10 @@ const Team = () => {
                                 style={{
                                     border: `${index < 2 ? '4px' : '2px'} solid ${member.color}4d`, // Thicker for top 2
                                     borderRadius: '24px',
-                                    minHeight: member.id === 1 ? '580px' : '280px' // Increased length for Lead card
+                                    minHeight: member.id === 1 ? '580px' : '280px', // Increased length for Lead card
+                                    position: 'relative',
+                                    zIndex: teamMembers.length - index, // Higher z-index for first cards
+                                    transformStyle: 'preserve-3d'
                                 }}
                             >
                                 <div className="team-member-image-container">
@@ -121,7 +124,15 @@ const Team = () => {
                                                 rel="noopener noreferrer"
                                                 className="social-link"
                                                 aria-label="LinkedIn"
-                                                style={{ width: '40px', height: '40px', position: 'relative', zIndex: 100 }}
+                                                style={{
+                                                    width: '40px',
+                                                    height: '40px',
+                                                    position: 'relative',
+                                                    zIndex: 1000,
+                                                    pointerEvents: 'auto',
+                                                    transform: 'translateZ(50px)', // Lift button in 3D space
+                                                    transformStyle: 'preserve-3d'
+                                                }}
                                             >
                                                 <Linkedin size={18} />
                                             </a>
@@ -153,12 +164,51 @@ const Team = () => {
                     </p>
 
                     <DraggableCardContainer>
+                        {/* Hidden quote revealed when cards are moved */}
+                        <motion.div
+                            className="gallery-quote"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                marginLeft: '-250px', // Center the quote (max-width 500px / 2)
+                                marginTop: '-50px', // Center vertically based on approximate text height
+                                zIndex: 0,
+                                textAlign: 'center',
+                                color: '#fbbf24', // Vibrant golden amber (Tailwind amber-400)
+                                fontSize: '1.75rem',
+                                fontStyle: 'italic',
+                                fontWeight: 500,
+                                maxWidth: '500px',
+                                width: '500px',
+                                lineHeight: 1.6,
+                                pointerEvents: 'none',
+                                textShadow: '0 0 20px rgba(251, 191, 36, 0.8), 0 0 40px rgba(251, 191, 36, 0.5), 0 4px 8px rgba(66, 23, 223, 0.9)',
+                            }}
+                        >
+                            <motion.span
+                                animate={{
+                                    opacity: [0.6, 1, 0.6],
+                                }}
+                                transition={{
+                                    duration: 3,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                            >
+                                "A single topic whispered, a complete lesson revealed."
+                            </motion.span>
+                        </motion.div>
+
                         <DraggableCardBody style={{
                             rotate: '-18deg',
                             zIndex: 6,
                             marginLeft: '-220px',
                             marginTop: '-250px',
-                            scatterTarget: { x: -180, y: -200, rotate: -10 } // Top Left (Safe)
+                            scatterTarget: { x: -180, y: -200, rotate: -10 }
                         }}>
                             <div className="draggable-card-content">
                                 <img
@@ -174,7 +224,7 @@ const Team = () => {
                             zIndex: 5,
                             marginLeft: '-110px',
                             marginTop: '-170px',
-                            scatterTarget: { x: 180, y: -200, rotate: 10 } // Top Right (Safe)
+                            scatterTarget: { x: 180, y: -200, rotate: 10 }
                         }}>
                             <div className="draggable-card-content">
                                 <img
@@ -190,7 +240,7 @@ const Team = () => {
                             zIndex: 4,
                             marginLeft: '-190px',
                             marginTop: '-190px',
-                            scatterTarget: { x: -180, y: 200, rotate: -5 } // Bottom Left (Safe)
+                            scatterTarget: { x: -180, y: 200, rotate: -5 }
                         }}>
                             <div className="draggable-card-content">
                                 <img
@@ -206,7 +256,7 @@ const Team = () => {
                             zIndex: 3,
                             marginLeft: '-100px',
                             marginTop: '-240px',
-                            scatterTarget: { x: 180, y: 200, rotate: 5 } // Bottom Right (Safe)
+                            scatterTarget: { x: 180, y: 200, rotate: 5 }
                         }}>
                             <div className="draggable-card-content">
                                 <img
@@ -222,7 +272,7 @@ const Team = () => {
                             zIndex: 2,
                             marginLeft: '-180px',
                             marginTop: '-220px',
-                            scatterTarget: { x: 0, y: 0, rotate: 0 } // Center (Safe)
+                            scatterTarget: { x: 0, y: 0, rotate: 0 }
                         }}>
                             <div className="draggable-card-content">
                                 <img

@@ -11,7 +11,7 @@ export default function Packages() {
       period: 'Forever Free',
       badge: 'Start Here',
       color: 'free',
-      icon: '🎁',
+      icon: '/free.png',
       features: [
         { name: '1000 Free Credits (10 Generations)', included: true },
         { name: 'AI-Powered Discovery', included: true },
@@ -23,13 +23,13 @@ export default function Packages() {
     },
     {
       name: 'Silver',
-      price: '₹299',
-      period: '/month',
+      price: '',
+      period: 'Coming Soon...',
       badge: 'Popular',
       color: 'silver',
-      icon: '⭐',
+      icon: '/silver.png',
       features: [
-        { name: '1000 Additional Generations', included: true },
+        { name: '5000 Additional Credits (50 Generations)', included: true },
         { name: 'PowerPoint & Word Export', included: true },
         { name: 'All Academic Levels', included: true },
         { name: 'Advanced Templates', included: true },
@@ -39,15 +39,14 @@ export default function Packages() {
     },
     {
       name: 'Gold',
-      price: '₹799',
-      period: '/month',
+      price: '',
+      period: 'Coming Soon...',
       badge: 'Best Value',
       color: 'gold',
-      icon: '👑',
+      icon: '/gold.png',
       featured: true,
       features: [
-        { name: '5000 Unlimited Generations', included: true },
-        { name: 'Video Material Generation', included: true },
+        { name: '10000 Additional Credits (100 Generations)', included: true },
         { name: 'All Academic Levels', included: true },
         { name: 'Custom Branding', included: true },
         { name: 'Priority Chat & Email', included: true },
@@ -60,7 +59,7 @@ export default function Packages() {
       period: '/month',
       badge: 'Enterprise',
       color: 'institutional',
-      icon: '🏛️',
+      icon: '/institution.png',
       features: [
         { name: 'Unlimited Generations', included: true },
         { name: 'API Access', included: true },
@@ -84,9 +83,11 @@ export default function Packages() {
           {packages.map((pkg, index) => (
             <div key={index} className={`package-card ${pkg.color} ${pkg.featured ? 'featured' : ''}`}>
               {pkg.badge && <div className="package-badge">{pkg.badge}</div>}
-              
+
               <div className="package-header">
-                <div className="package-icon">{pkg.icon}</div>
+                <div className="package-icon">
+                  <img src={pkg.icon} alt={`${pkg.name} icon`} />
+                </div>
                 <h3>{pkg.name}</h3>
                 <div className="package-price">{pkg.price}<span>{pkg.period}</span></div>
               </div>
