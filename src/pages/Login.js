@@ -32,7 +32,7 @@ export default function Login() {
         <div className="auth-card">
           <div className="auth-header">
             <div className="auth-logo">
-              <img src="/TechGenieMascot.PNG" alt="TeachGenie" className="auth-logo-image" style={{width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover'}} />
+              <img src="/TechGenieMascot.png" alt="TeachGenie" className="auth-logo-image" style={{width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover'}} />
               <h1>TeachGenie</h1>
             </div>
             <p className="auth-subtitle">AI-Powered Lecture Material Generation</p>

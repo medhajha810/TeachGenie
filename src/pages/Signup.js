@@ -186,7 +186,7 @@ export default function Signup() {
         <div className="auth-card">
           <div className="auth-header">
             <div className="auth-logo">
-              <img src="/TechGenieMascot.PNG" alt="TeachGenie" className="auth-logo-image" style={{width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover'}} />
+              <img src="/TechGenieMascot.png" alt="TeachGenie" className="auth-logo-image" style={{width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover'}} />
               <h1 className="animated-title">
                 {'TeachGenie'.split('').map((char, index) => (
                   <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>

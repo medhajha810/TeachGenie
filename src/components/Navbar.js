@@ -59,7 +59,7 @@ export default function Navbar() {
       <nav className={`floating-navbar ${visible ? 'visible' : 'hidden'}`}>
         <div className="floating-navbar-container">
           <Link to="/" className="navbar-logo">
-            <img src="/TechGenieMascot.PNG" alt="TeachGenie" className="navbar-logo-img" />
+            <img src="/TechGenieMascot.png" alt="TeachGenie" className="navbar-logo-img" />
             <span className="navbar-logo-text">TeachGenie</span>
           </Link>
 

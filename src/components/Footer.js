@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="footer-wrapper">
           {/* Logo */}
           <div className="footer-logo-section">
-            <img src="/TechGenieMascot.PNG" alt="TeachGenie" className="footer-logo-img" />
+            <img src="/TechGenieMascot.png" alt="TeachGenie" className="footer-logo-img" />
             <h2 className="footer-logo-text">TeachGenie</h2>
           </div>
 

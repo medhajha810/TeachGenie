@@ -29,7 +29,7 @@ const LoadingScreen = ({ onComplete }) => {
       <div className="loading-container">
         {/* Floating Genie Logo */}
         <div className="floating-genie">
-          <img src="/TechGenieMascot.PNG" alt="TeachGenie" className="genie-image" />
+          <img src="/TechGenieMascot.png" alt="TeachGenie" className="genie-image" />
           <div className="genie-glow"></div>
         </div>
 
