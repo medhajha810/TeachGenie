@@ -44,9 +44,9 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'Home', link: '/', icon: <Home size={20} />, isRoute: true },
-    { name: 'Features', link: '#features', icon: <Sparkles size={20} /> },
-    { name: 'Packages', link: '#packages', icon: <Package size={20} /> },
-    { name: 'How It Works', link: '#how-it-works', icon: <Lightbulb size={20} /> },
+    { name: 'Features', link: '/#features', icon: <Sparkles size={20} />, isRoute: true },
+    { name: 'Packages', link: '/#packages', icon: <Package size={20} />, isRoute: true },
+    { name: 'How It Works', link: '/#how-it-works', icon: <Lightbulb size={20} />, isRoute: true },
     { name: 'Dashboard', link: '#', icon: <Wand2 size={20} />, isComingSoon: true },
   ];
 

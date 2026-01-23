@@ -18,9 +18,9 @@ const Footer = () => {
           </div>
 
           <nav className="footer-nav">
-            <a href="#features">FEATURES</a>
-            <a href="#packages">PRICING</a>
-            <a href="#how-it-works">HOW IT WORKS</a>
+            <Link to="/#features">FEATURES</Link>
+            <Link to="/#packages">PRICING</Link>
+            <Link to="/#how-it-works">HOW IT WORKS</Link>
             <button onClick={() => setShowComingSoonModal(true)}>
               GENERATOR
             </button>

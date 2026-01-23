@@ -7,6 +7,7 @@ import LearnMore from './pages/LearnMore';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import LoadingScreen from './components/LoadingScreen';
+import ScrollToHash from './components/ScrollToHash';
 import { ThemeProvider } from './context/ThemeContext';
 import './styles/index.css';
 import './styles/theme-light.css';
@@ -24,6 +25,7 @@ function App() {
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       <ThemeProvider>
         <Router>
+          <ScrollToHash />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/team" element={<Team />} />
