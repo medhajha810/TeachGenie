@@ -46,7 +46,7 @@ const Footer = () => {
             <span className="credit-item">
               <span className="credit-label">Contributors:</span>
               <span className="credit-name">
-                <a href="https://www.linkedin.com/in/medha-jha08">Medha Jha</a> & <a href="https://www.linkedin.com/in/golukumar15">Golu Kumar</a>
+                <a href="https://www.linkedin.com/in/medha-jha810">Medha Jha</a> & <a href="https://www.linkedin.com/in/golukumar15">Golu Kumar</a>
               </span>
             </span>
             <span className="divider">•</span>
