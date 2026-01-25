@@ -59,15 +59,11 @@ export default function Hero() {
               Learn More
             </Link>
           </div>
-
-          <div className="hero-trust">
-            <span>Trusted by educators at</span>
-            <div className="trust-logos">
-              {/* Placeholders for trust logos or text */}
-              <span>LPU</span> • <span>CGC</span> • <span>Amity</span>
-            </div>
+          <div className="trust-logos">
+            <span>Faster planning</span> • <span>More teaching</span> • <span>Better learning</span>
           </div>
-        </div>
+          </div>
+       
 
         <div className="hero-visual">
           <div className="hero-card-wrapper">
